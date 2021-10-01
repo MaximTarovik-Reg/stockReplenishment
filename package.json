@@ -9,14 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MaximTarovik-Reg/reStock.git"
+    "url": ""
   },
   "author": "Maxim Tarovik",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MaximTarovik-Reg/reStock/issues"
-  },
-  "homepage": "https://github.com/MaximTarovik-Reg/reStock#readme",
+  "homepage": "",
   "devDependencies": {
     "chai": "^4.3.4",
     "mocha": "^9.1.1",
