@@ -1,0 +1,10 @@
+SELECT sub.*
+FROM (
+SELECT supplier.supplierName, supplier.shipmentDays, product.productName, stock.price, discount.percentageDate, discount.startDate, discount.finishDate, discount.percentagePrice, discount.startPrice, discount.percentagePcs, discount.pcsStart, discount.productID, discount.active
+FROM supplier
+JOIN stock ON supplier.supplierID = stock.supplierID
+JOIN product ON product.productID = stock.productID
+LEFT JOIN discount ON (discount.supplierID = supplier.supplierID AND discount.productID = stock.productID)
+WHERE stock.productID = 4 AND stock.pcs >= 24
+)sub
+WHERE (sub.active = 1 || sub.active IS NULL)
