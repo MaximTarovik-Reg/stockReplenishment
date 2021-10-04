@@ -5,7 +5,7 @@ The aim of this project is to create a system that allows your shop to restock s
 The system requires an input, you need to specify the item and the number of pieces you wish to order, the system will then print a table highlighting the cheapest option.
 You'll still be able to see other suppliers in case you decide that a shorter shipment time is worth the higher price.
 
-## Technologies used
+## :computer: Technologies used
 
 This project was built mainly using node.js, the database used was created using XAMPP and it's a relational MySQL DB.
 The front-end spectrum of the application was created with a simple HTML page that communicates with node using a jQuery script.
@@ -36,7 +36,7 @@ Once created, import the tables with the provided SQL file.
 
 One last step is to install vscode live server to run the HTML file, you can do that simply by searching "Live Server" in the extension tab of vscode.
 
-## Usage
+## :notebook_with_decorative_cover: Usage
 
 You can run this project in two ways:
 1. Through vscode live server by running "index.html"
@@ -48,7 +48,7 @@ Let's start with the first option, open the project in vscode, and start the exp
 
 The reason we run this command and not `node server.js` is because of nodemon, which allows us to update the page on file save without pressing F5.
 
-Now all that's left to do is right click index.html and run it with vscode live server, the web app should now be running.
+Now all that's left to do is right click "index.html" and run it with vscode live server, the web app should now be running.
 
 The second option is to run the app in the terminal, to do that simply run the following command in the project terminal:
 
@@ -56,3 +56,10 @@ The second option is to run the app in the terminal, to do that simply run the f
 
 This runs the application in the terminal, the product list will be printed out and the app will wait for your inputs.
 To run the app again simply rerun the command.
+
+## :heavy_check_mark: Tests
+
+A number of unit tests are implemented inside the project, they are stored in "functionsTest.js" and can be run with the following command in the project terminal:
+
+`npm run test`
+
