@@ -23,13 +23,36 @@ Also, the following node modules were used:
 
 ## :hammer_and_wrench: Installation
 
-First, you need to clone the project:<br>
+First, you need to clone the project:
+
 `git clone https://github.com/MaximTarovik-Reg/stockReplenishment.git`
 
 All of the dependencies are already installed so your next step should be the installation of the database.
-You can use whatever service you want, once you are ready simply create the database:<br>
+You can use whatever service you want, once you are ready simply create the database:
+
 `CREATE DATABASE restock`
 
 Once created, import the tables with the provided SQL file.
 
 One last step is to install vscode live server to run the HTML file, you can do that simply by searching "Live Server" in the extension tab of vscode.
+
+## Usage
+
+You can run this project in two ways:
+1. Through vscode live server by running "index.html"
+2. Running app.js in the terminal
+
+Let's start with the first option, open the project in vscode, and start the express server by running the following command:
+
+`npm run dev`
+
+The reason we run this command and not `node server.js` is because of nodemon, which allows us to update the page on file save without pressing F5.
+
+Now all that's left to do is right click index.html and run it with vscode live server, the web app should now be running.
+
+The second option is to run the app in the terminal, to do that simply run the following command in the project terminal:
+
+`node app.js`
+
+This runs the application in the terminal, the product list will be printed out and the app will wait for your inputs.
+To run the app again simply rerun the command.
