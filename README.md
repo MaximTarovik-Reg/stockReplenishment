@@ -5,6 +5,12 @@ The aim of this project is to create a system that allows your shop to restock s
 The system requires an input, you need to specify the item and the number of pieces you wish to order, the system will then print a table highlighting the cheapest option.
 You'll still be able to see other suppliers in case you decide that a shorter shipment time is worth the higher price.
 
+Table of contents:
+  - [:computer: Technologies used](#computer-technologies-used)
+  - [:hammer_and_wrench: Installation](#hammer_and_wrench-installation)
+  - [:notebook_with_decorative_cover: Usage](#notebook_with_decorative_cover-usage)
+  - [:heavy_check_mark: Tests](#heavy_check_mark-tests)
+
 ## :computer: Technologies used
 
 This project was built mainly using node.js, the database used was created using XAMPP and it's a relational MySQL DB.
