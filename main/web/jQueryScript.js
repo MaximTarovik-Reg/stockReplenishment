@@ -1,5 +1,10 @@
+let map, heatmap, heatData = [];
+
 /** The table stays hidden by default */
 $("#table").hide();
+$("#mapTitle").hide();
+$("#floating-panel").hide();
+$("#map").hide();
 
 /** This function prints all of the products in the dropdown menu */
 $(document).ready(function () {
@@ -34,6 +39,9 @@ $(document).ready(function() {
             if (result.length > 0) { /** Checking if query returns an empty array */
 
                 $("#table").show(); /** Showing the table */
+                $("#mapTitle").show();
+                $("#floating-panel").show();
+                $("#map").show();
                 $('#noStock').hide(); /** Hiding no stock output */
 
                 /** Printing table with query result data */
@@ -54,6 +62,30 @@ $(document).ready(function() {
                             '<td> € ' + result[i].discountedPrice.toFixed(2) +'</td></tr>';
                 
                 $('#table tr').first().after(html);
+
+                
+
+                fetch('http://localhost:3000/query-map/' + productID) /** Fetching query results from express */
+                .then(response => response.json())
+                .then(result => {
+
+                    heatData = [];
+
+                    $.each(result, function () {
+
+                        // console.log(this.latitude + " | " + this.longitude + " | " + this.pcs);
+
+                        let obj = {
+
+                            location: new google.maps.LatLng(this.latitude, this.longitude),
+                            weight: this.pcs
+                        };
+
+                        heatData.push(obj);
+                    });
+                });
+
+                initMap(heatData);
             }else {
 
                 /** Result is empty, printing "No stock" message */
@@ -66,3 +98,68 @@ $(document).ready(function() {
         });
     });
 });
+
+function initMap() {
+
+    map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 6,
+        center: { lat: 45.541553, lng: 10.211802 },
+        // mapTypeId: "satellite",
+    });
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+
+        data: heatData,
+        map: map,
+    });
+
+    document
+        .getElementById("toggle-heatmap")
+        .addEventListener("click", toggleHeatmap);
+    document
+        .getElementById("change-gradient")
+        .addEventListener("click", changeGradient);
+    document
+        .getElementById("change-opacity")
+        .addEventListener("click", changeOpacity);
+    document
+        .getElementById("change-radius")
+        .addEventListener("click", changeRadius);
+};
+
+function toggleHeatmap() {
+
+    heatmap.setMap(heatmap.getMap() ? null : map);
+};
+
+function changeGradient() {
+
+    const gradient = [
+        "rgba(0, 255, 255, 0)",
+        "rgba(0, 255, 255, 1)",
+        "rgba(0, 191, 255, 1)",
+        "rgba(0, 127, 255, 1)",
+        "rgba(0, 63, 255, 1)",
+        "rgba(0, 0, 255, 1)",
+        "rgba(0, 0, 223, 1)",
+        "rgba(0, 0, 191, 1)",
+        "rgba(0, 0, 159, 1)",
+        "rgba(0, 0, 127, 1)",
+        "rgba(63, 0, 91, 1)",
+        "rgba(127, 0, 63, 1)",
+        "rgba(191, 0, 31, 1)",
+        "rgba(255, 0, 0, 1)",
+    ];
+
+    heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
+};
+
+function changeRadius() {
+
+    heatmap.set("radius", heatmap.get("radius") ? null : 20);
+};
+
+function changeOpacity() {
+
+    heatmap.set("opacity", heatmap.get("opacity") ? null : 0.2);
+};

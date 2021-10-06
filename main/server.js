@@ -61,6 +61,23 @@ app.get('/query/:productID/:nPcs', function(req, res) {
     });
 });
 
+app.get('/query-map/:productID', function (req, res) {
+
+    let orderProductID = req.params.productID;
+
+    let query = "SELECT supplier.latitude, supplier.longitude, stock.pcs " +
+        "FROM supplier " +
+        "JOIN stock ON supplier.supplierID = stock.supplierID " +
+        "WHERE stock.productID = " + mysql.escape(orderProductID);
+
+    con.query(query, function (err, result) {
+
+        if (err) throw err;
+
+        res.send(result);
+    });
+});
+
 /** Default route */
 app.get('/', function(req, res) {
 
