@@ -61,6 +61,7 @@ app.get('/query/:productID/:nPcs', function(req, res) {
     });
 });
 
+/** Querying the DB for lat, lng and stock pcs */
 app.get('/query-map/:productID', function (req, res) {
 
     let orderProductID = req.params.productID;

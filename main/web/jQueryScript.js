@@ -1,6 +1,6 @@
 let map, heatmap, heatData = [];
 
-/** The table stays hidden by default */
+/** Table and map stay hidden by default */
 $("#table").hide();
 $("#mapTitle").hide();
 $("#floating-panel").hide();
@@ -24,7 +24,7 @@ $(document).ready(function () {
     });
 });
 
-/** This function prints the final resutl table */
+/** This function prints the final result table and heatmap */
 $(document).ready(function() {
 
     $("#submit").click(function () { /** On submit click */
@@ -38,11 +38,14 @@ $(document).ready(function() {
 
             if (result.length > 0) { /** Checking if query returns an empty array */
 
-                $("#table").show(); /** Showing the table */
+                /** Showing table and map */
+                $("#table").show();
                 $("#mapTitle").show();
                 $("#floating-panel").show();
                 $("#map").show();
-                $('#noStock').hide(); /** Hiding no stock output */
+
+                /** Hiding no stock output */
+                $('#noStock').hide();
 
                 /** Printing table with query result data */
 
@@ -61,36 +64,40 @@ $(document).ready(function() {
                             '<td>' + result[i].shipmentDays +
                             '<td> € ' + result[i].discountedPrice.toFixed(2) +'</td></tr>';
                 
-                $('#table tr').first().after(html);
+                $('#table tr').first().after(html);                
 
-                
-
-                fetch('http://localhost:3000/query-map/' + productID) /** Fetching query results from express */
+                /** Map query */
+                fetch('http://localhost:3000/query-map/' + productID) /** Fetching map query results from express */
                 .then(response => response.json())
                 .then(result => {
 
-                    heatData = [];
+                    heatData = []; /** Resetting heatmap array */
 
                     $.each(result, function () {
 
-                        // console.log(this.latitude + " | " + this.longitude + " | " + this.pcs);
-
-                        let obj = {
+                        let obj = { /** Creating an obj for each row */
 
                             location: new google.maps.LatLng(this.latitude, this.longitude),
                             weight: this.pcs
                         };
 
-                        heatData.push(obj);
+                        heatData.push(obj); /** Adding the objects to the array */
                     });
-                });
 
-                initMap(heatData);
+                    initMap(); /** Inizializing heatMap */
+                });
             }else {
 
                 /** Result is empty, printing "No stock" message */
-                $("#table").hide(); /** Hiding the table */
-                $('#noStock').show(); /** Showing no stock output */
+
+                /** Hiding table and map */
+                $("#table").hide();
+                $("#mapTitle").hide();
+                $("#floating-panel").hide();
+                $("#map").hide();
+
+                /** Showing no stock output */
+                $('#noStock').show();
 
                 let output = "Item not in stock.";
                 $('#noStock').text(output);
@@ -101,18 +108,23 @@ $(document).ready(function() {
 
 function initMap() {
 
+    /** Initializing map */
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: 6,
         center: { lat: 45.541553, lng: 10.211802 },
-        // mapTypeId: "satellite",
+
+        /** For satellite map */
+        /** mapTypeId: "satellite" */
     });
 
+    /** Initializing heatmap */
     heatmap = new google.maps.visualization.HeatmapLayer({
 
         data: heatData,
         map: map,
     });
 
+    /** Adding listeners to the buttons */
     document
         .getElementById("toggle-heatmap")
         .addEventListener("click", toggleHeatmap);
@@ -127,6 +139,7 @@ function initMap() {
         .addEventListener("click", changeRadius);
 };
 
+/** Button functions */
 function toggleHeatmap() {
 
     heatmap.setMap(heatmap.getMap() ? null : map);
