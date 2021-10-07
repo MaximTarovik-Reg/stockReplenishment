@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Custom CSS stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap library -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Basic HTML -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./box-seam.svg" type="image/x-icon">
+    <title>ReStock</title>
+</head>
+
+<body class="bg-light">
+
+    <!-- Map title start -->
+
+    <div id="mapTitle" class="container my-3">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h1 class="display-1 text-center">
+                    Heat Map!
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map title finish -->
+
+    <!-- Map buttons start -->
+
+    <div id="floating-panel" class="bg-light">
+        <button id="toggle-heatmap" class="btn btn-light">Toggle Heatmap</button>
+        <button id="change-gradient" class="btn btn-light">Change gradient</button>
+        <button id="change-radius" class="btn btn-light">Change radius</button>
+        <button id="change-opacity" class="btn btn-light">Change opacity</button>
+    </div>
+
+    <!-- Map buttons finish -->
+
+    <!-- Map start -->
+
+    <div id="map" class="border border-3 border-success rounded mb-3 mt-1"></div>
+
+    <!-- Map finish -->
+
+    <!-- Link to script that processes and outputs data and maps API -->
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnpjCjFyHlUE7DQIqLTZ_9WseUrsW-YCY&libraries=visualization&callback=initMap"></script>
+</body>
+
+</html>
