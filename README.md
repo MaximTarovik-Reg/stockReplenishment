@@ -69,3 +69,15 @@ A number of unit tests are implemented inside the project, they are stored in "f
 
 `npm run test`
 
+## :world_map: Heat Map
+
+A heatmap displaying stock data has been implemented in the project, once you click on the submit button it'll show under the table displaying each supplier's location and the number of pieces of the selected product that they have in stock.
+The map will automatically update whenever you select another product from the form.
+
+There are also 4 buttons on top of the map that allow you to:
+- toggle the heatmap
+- change the color gradient
+- change the radius
+- change opacity.
+
+The heatmap has been implemented using google maps js API.
