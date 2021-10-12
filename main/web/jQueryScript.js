@@ -1,3 +1,4 @@
+/** Initializing map variables */
 let map, heatmap, heatData = [];
 
 /** Table and map stay hidden by default */

@@ -10,6 +10,9 @@ Table of contents:
   - [:hammer_and_wrench: Installation](#hammer_and_wrench-installation)
   - [:notebook_with_decorative_cover: Usage](#notebook_with_decorative_cover-usage)
   - [:heavy_check_mark: Tests](#heavy_check_mark-tests)
+  - [:world_map: Heat Map](#world_map-heat-map)
+  - [:shopping_cart: Random order creator](#shopping_cart-random-order-creator)
+  - [:detective: Clients' orders Heat Map](#detective-clients-orders-heat-map)
 
 ## :computer: Technologies used
 
