@@ -11,12 +11,14 @@ $(document).ready(function () {
 
     fetch('http://localhost:3000/query-product') /** Fetching query results from express */
     .then(response => response.json())
-    .then(result => {
+    .then(product => {
 
         /** Printing the dropdown menu */
         var $dropdown = $("#dropdown");
 
-        $.each(result, function () {
+        $dropdown.append($(" <option value='' disabled selected hidden>Select a product</option>"));
+
+        $.each(product, function () {
 
             /** .val() assigns the value of the option to be the productID */
             $dropdown.append($("<option />").val(this.productID).text(this.productName));

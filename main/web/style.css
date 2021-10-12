@@ -1,27 +1,47 @@
 #map {
+
     height: 600px;
-    width: 80%;
+    width: 100%;
+    margin: auto;
+}
+
+#clientMap {
+
+    height: 600px;
+    width: 100%;
     margin: auto;
 }
 
 #floating-panel {
-  /* position: absolute; */
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  text-align: center;
-  font-family: "Roboto", "sans-serif";
-  line-height: 30px;
-  padding-left: 10px;
+
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 3px;
+    text-align: center;
+    font-family: "Roboto", "sans-serif";
+    line-height: 30px;
+    padding-left: 10px;
 }
 
 #floating-panel {
-  background-color: #fff;
-  left: 25%;
-  padding: 5px;
-  /* position: absolute; */
-  top: 10px;
-  z-index: 5;
+
+    background-color: #fff;
+    left: 25%;
+    padding: 3px;
+    top: 10px;
+    z-index: 5;
+}
+
+.startBox {
+
+    width: 45%;
+    float: left;
+}
+
+.endBox {
+
+    width: 45%;
+    float: right;
 }

@@ -3,10 +3,9 @@
 
 <head>
     <!-- Custom CSS stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <!-- Bootstrap library -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Basic HTML -->
@@ -19,40 +18,164 @@
 
 <body class="bg-light">
 
-    <!-- Map title start -->
+    <!-- Title Start -->
 
-    <div id="mapTitle" class="container my-3">
+    <div class="container my-3">
         <div class="row justify-content-center">
             <div class="col-8">
                 <h1 class="display-1 text-center">
-                    Heat Map!
+                    Clients' orders heatmap
                 </h1>
             </div>
         </div>
     </div>
 
-    <!-- Map title finish -->
+    <!-- Title Finish -->
+
+    <!-- Filter start -->
+
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-3">
+
+                Filter by supplier: <br>
+                <select class="form-select" name="selectSupplier" id="dropdown-supplier">
+                
+                    <option value="" disabled hidden selected>Select a supplier</option>
+                    <!-- jQuery script prints suppliers here -->
+                </select>
+            </div>
+
+            <div class="col-3">
+
+                Filter by product: <br>
+                <select class="form-select" name="selectProduct" id="dropdown-product">
+                
+                    <option value="" disabled hidden selected>Select a product</option>
+                    <!-- jQuery script prints products here -->
+                </select>
+            </div>
+
+            <div class="col-3">
+
+                Filter by gender: <br>
+                <select class="form-select" name="selectGender" id="dropdown-gender">
+                
+                    <option value="" disabled hidden selected>Select a gender</option>
+                    <!-- jQuery script prints genders here -->
+                </select>
+            </div>
+            
+            <div class="col-3">
+
+                <div class="startBox">
+                
+                    Order date start: <br>
+                    <input class="form-control" type="date" id="startDate">
+                </div>
+                
+                <div class="endBox">
+                
+                    Order date end: <br>
+                    <input class="form-control" type="date" id="endDate">
+                </div>
+            </div>
+        </div>
+        <div class="row my-2">
+
+            <div class="col-3">
+
+                Filter by zodiac: <br>
+                <select class="form-select" name="selectZodiac" id="dropdown-zodiac">
+                
+                    <option value="" disabled hidden selected>Select a zodiac</option>
+                    <!-- jQuery script prints zodiacs here -->
+                </select>
+            </div>
+
+            <div class="col-3">
+
+                Filter by blood type: <br>
+                <select class="form-select" name="selectBlood" id="dropdown-blood">
+                
+                    <option value="" disabled hidden selected>Select a blood type</option>
+                    <!-- jQuery script prints blood types here -->
+                </select>
+            </div>
+
+            <div class="col-3">
+
+                Filter by country: <br>
+                <select class="form-select" name="selectCountry" id="dropdown-country">
+                
+                    <option value="" disabled hidden selected>Select a country</option>
+                    <!-- jQuery script prints countries here -->
+                </select>
+            </div>
+
+            <div class="col-3">
+
+                <div class="startBox">
+                
+                    Age start: <br>
+                    <input class="form-control" type="text" id="startAge">
+                </div>
+                
+                <div class="endBox">
+                
+                    Age end: <br>
+                    <input class="form-control" type="text" id="endAge">
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons Start -->
+
+        <div class="row my-3 pb-3 border-bottom border-dark">
+
+            <div class="col-4">
+                
+                <button id="resetMap" style="width:100%" class="btn btn-outline-danger">Reset Map</button>
+            </div>
+            <div class="col-4">
+                
+                <button id="resetFilter" style="width:100%" class="btn btn-outline-success">Reset Filter</button>
+            </div>
+            <div class="col-4">
+                
+                <button id="filterSubmit" style="width:100%" class="btn btn-outline-primary">Filter</button>
+            </div>
+        </div>
+
+        <!-- Buttons end -->
+    </div>
+
+    <!-- Filter end -->
 
     <!-- Map buttons start -->
 
     <div id="floating-panel" class="bg-light">
-        <button id="toggle-heatmap" class="btn btn-light">Toggle Heatmap</button>
-        <button id="change-gradient" class="btn btn-light">Change gradient</button>
-        <button id="change-radius" class="btn btn-light">Change radius</button>
-        <button id="change-opacity" class="btn btn-light">Change opacity</button>
+        <button id="toggle-heatmap" class="btn btn-outline-secondary">Toggle Heatmap</button>
+        <button id="change-gradient" class="btn btn-outline-secondary">Change gradient</button>
+        <button id="change-radius" class="btn btn-outline-secondary">Change radius</button>
+        <button id="change-opacity" class="btn btn-outline-secondary">Change opacity</button>
     </div>
 
     <!-- Map buttons finish -->
 
     <!-- Map start -->
 
-    <div id="map" class="border border-3 border-success rounded mb-3 mt-1"></div>
+    <div class="container">
+
+        <div id="clientMap" class="border border-3 border-success rounded mb-3 mt-1 col-9"></div>
+    </div>
 
     <!-- Map finish -->
 
     <!-- Link to script that processes and outputs data and maps API -->
 
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnpjCjFyHlUE7DQIqLTZ_9WseUrsW-YCY&libraries=visualization&callback=initMap"></script>
+    <script src="./clientMapScript.js"></script>
 </body>
 
 </html>

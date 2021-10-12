@@ -1,3 +1,4 @@
+// Main function query
 SELECT sub.*
 FROM (
 SELECT supplier.supplierName, supplier.shipmentDays, product.productName, stock.price, discount.percentageDate, discount.startDate, discount.finishDate, discount.percentagePrice, discount.startPrice, discount.percentagePcs, discount.pcsStart, discount.productID, discount.active
@@ -8,3 +9,27 @@ LEFT JOIN discount ON (discount.supplierID = supplier.supplierID AND discount.pr
 WHERE stock.productID = 4 AND stock.pcs >= 24
 )sub
 WHERE (sub.active = 1 || sub.active IS NULL)
+
+// Client heatMap query
+SELECT client.latitude, client.longitude, COUNT(order.orderID) AS orders
+FROM client
+JOIN `order` ON client.clientID = `order`.clientID
+GROUP BY client.clientID
+
+// Filtered client heatMap query
+SELECT client.latitude, client.longitude, COUNT(order.orderID) AS orders
+FROM client
+JOIN `order` ON client.clientID = `order`.clientID
+JOIN supplier ON supplier.supplierID = `order`.`supplierID`
+JOIN product ON product.productID = `order`.`productID`
+WHERE `order`.`supplierID` = 1 AND 
+`order`.`productID` = 1 AND 
+client.gender = "male" AND 
+client.countryfull = "United Kingdom" AND 
+client.tropicalzodiac = "Pisces" AND 
+client.bloodtype = "AB+" AND 
+`order`.`date` >= "2020-01-01" AND 
+`order`.`date` <= "2021-01-01" AND 
+client.age >= 1 AND 
+client.age <= 90 
+GROUP BY client.clientID

@@ -81,3 +81,11 @@ There are also 4 buttons on top of the map that allow you to:
 - change opacity.
 
 The heatmap has been implemented using google maps js API.
+
+## :shopping_cart: Random order creator
+
+By running "createOrder.html" you can add randomly generated orders to the database, these orders will come in handy in the clients' orders heatMap.
+
+## :detective: Clients' orders Heat Map
+
+By running "clientMap.hmtml" you get access to the clients' orders heatMap, here you can filter the results by certain parameters and watch the displayed data.

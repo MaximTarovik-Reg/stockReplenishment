@@ -37,7 +37,7 @@
             <div class="col-6">
 
                 <span class = "text">Select product</p>
-                <select class="form-control" name="selectProduct" id="dropdown">
+                <select required class="form-select" name="selectProduct" id="dropdown">
                     <!-- jQuery script prints products here -->
                 </select>
 
@@ -105,17 +105,20 @@
     <!-- Map buttons start -->
     
     <div id="floating-panel" class="bg-light">
-        <button id="toggle-heatmap" class="btn btn-light">Toggle Heatmap</button>
-        <button id="change-gradient" class="btn btn-light">Change gradient</button>
-        <button id="change-radius" class="btn btn-light">Change radius</button>
-        <button id="change-opacity" class="btn btn-light">Change opacity</button>
+        <button id="toggle-heatmap" class="btn btn-outline-secondary">Toggle Heatmap</button>
+        <button id="change-gradient" class="btn btn-outline-secondary">Change gradient</button>
+        <button id="change-radius" class="btn btn-outline-secondary">Change radius</button>
+        <button id="change-opacity" class="btn btn-outline-secondary">Change opacity</button>
     </div>
 
     <!-- Map buttons finish -->
     
     <!-- Map start -->
     
-    <div id="map" class="border border-3 border-success rounded mb-3 mt-1"></div>
+    <div class="container">
+
+        <div id="map" class="border border-3 border-success rounded mb-3 mt-1 col-9"></div>
+    </div>
     
     <!-- Map finish -->
     
