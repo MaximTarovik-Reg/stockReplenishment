@@ -29,6 +29,7 @@ Also, the following node modules were used:
 - Nodemon
 - Body-Parser
 - Cors
+- Google Maps HeatMap API
 
 ## :hammer_and_wrench: Installation
 
