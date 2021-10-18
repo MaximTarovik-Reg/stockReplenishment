@@ -54,6 +54,10 @@ function loadMap() {
     });
 };
 
+/**
+ * @param  {} center
+ * @param  {} zoom
+ */
 function initMap(center, zoom) {
 
     /** Initializing map */
@@ -549,6 +553,10 @@ $("#endAge").inputFilter(function (value) {
 });
 
 /** SLERP on Wikipedia */
+
+/**
+ * @param  {} coords
+ */
 function averageGeolocation(coords) {
 
     if (coords.length === 1) {
