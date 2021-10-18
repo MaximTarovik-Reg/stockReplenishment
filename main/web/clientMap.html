@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <!-- Title Finish -->
+    <!-- Title End -->
 
     <!-- Filter start -->
 
@@ -148,29 +148,44 @@
         </div>
 
         <!-- Buttons end -->
+        
     </div>
 
     <!-- Filter end -->
 
+    <!-- No result message start -->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <p id="noData" class="text-center text-danger my-2">
+                    No results found!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- No result message end -->
+
     <!-- Map buttons start -->
 
-    <div id="floating-panel" class="bg-light">
+    <div id="floating-panel" class="bg-light my-1">
         <button id="toggle-heatmap" class="btn btn-outline-secondary">Toggle Heatmap</button>
         <button id="change-gradient" class="btn btn-outline-secondary">Change gradient</button>
         <button id="change-radius" class="btn btn-outline-secondary">Change radius</button>
         <button id="change-opacity" class="btn btn-outline-secondary">Change opacity</button>
     </div>
 
-    <!-- Map buttons finish -->
+    <!-- Map buttons end -->
 
     <!-- Map start -->
 
     <div class="container">
 
-        <div id="clientMap" class="border border-3 border-success rounded mb-3 mt-1 col-9"></div>
+        <div id="clientMap" class="border border-3 border-success rounded mb-3 col-9"></div>
     </div>
 
-    <!-- Map finish -->
+    <!-- Map end -->
 
     <!-- Link to script that processes and outputs data and maps API -->
 

@@ -1,5 +1,7 @@
 /** Initializing map variables */
-let map, heatmap, heatData = [];
+let map, heatmap, defaultZoom = 3, heatData = [], coords = [];
+
+$("#noData").hide();
 
 /** loadMap is a separate function to reset the heatMap, so the first time it is called like this */
 $(document).ready(function() {
@@ -10,34 +12,55 @@ $(document).ready(function() {
 /** Heatmap with unfiltered Data */
 function loadMap() {
 
+    $("#noData").hide();
+
     /** Map query */
     fetch('http://localhost:3000/query-clientMap') /** Fetching map query results from express */
     .then(response => response.json())
     .then(result => {
 
         heatData = []; /** Resetting heatmap array */
+        coords = []; /** Resetting coords array */
+        let obj;
+        let coord;
 
         $.each(result, function () {
 
-            let obj = { /** Creating an obj for each row */
+            obj = { /** Creating an obj for each row */
 
                 location: new google.maps.LatLng(this.latitude, this.longitude),
                 weight: this.orders
             };
 
+            for (let i = 0; i < this.orders; i++) { /** Creating as many coord objects as the weight of each point */
+
+                coord = {
+
+                    latitude: this.latitude,
+                    longitude: this.longitude
+                };
+
+                coords.push(coord);
+            }
+
             heatData.push(obj); /** Adding the objects to the array */
         });
 
-        initMap();
+        let avgLocation = averageGeolocation(coords); /** Caulculating the average location of coords array */
+
+        let center = { lat: avgLocation.latitude, lng: avgLocation.longitude}; /** Setting heatmap center */
+
+        initMap(center, defaultZoom);
     });
 };
 
-function initMap() {
+function initMap(center, zoom) {
 
     /** Initializing map */
     map = new google.maps.Map(document.getElementById("clientMap"), {
-        zoom: 3,
-        center: { lat: 45.541553, lng: 10.211802 },
+
+        zoom: zoom,
+        center: center,
 
         /** For satellite map */
         /** mapTypeId: "satellite" */
@@ -216,7 +239,9 @@ $(document).ready(function () {
 
     $("#filterSubmit").click(function () {
 
-        $(document).scrollTop($(document).height()); /** Scrolling to the bottom of the page */
+        $("#noData").hide();
+
+        let zoom = defaultZoom; /** Zoom stays as default unless a country is selected. */
 
         /** Fetching form values */
         let supplierID = $("#dropdown-supplier").val();
@@ -241,52 +266,151 @@ $(document).ready(function () {
         if(supplierID !== null) {
             
             query += "`order`.`supplierID` = " + supplierID + " AND ";
-        };
+        }
 
         if(productID !== null) {
 
             query += "`order`.`productID` = " + productID + " AND ";
-        };
+        }
 
         if(gender !== null) {
 
             query += "client.gender = '" + gender + "' AND ";
-        };
+        }
 
         if(country !== null) {
 
+            /** Changing zoom because a country has been selected. */
+            switch (country) {
+
+                case "United Kingdom": zoom = 6;
+
+                    break;
+                case "New Zealand": zoom = 5;
+
+                    break;
+                case "Brazil": zoom = 4;
+
+                    break;
+                case "Denmark": zoom = 7;
+
+                    break;
+                case "Cyprus (Greek)": zoom = 11;
+
+                    break;
+                case "Hungary": zoom = 7;
+
+                    break;
+                case "Slovenia": zoom = 8;
+
+                    break;
+                case "Australia": zoom = 4;
+
+                    break;
+                case "Canada": zoom = 4;
+
+                    break;
+                case "Italy": zoom = 6;
+
+                    break;
+                case "Uruguay": zoom = 7;
+
+                    break;
+                case "Spain": zoom = 6;
+
+                    break;
+                case "Estonia": zoom = 7;
+
+                    break;
+                case "South Africa": zoom = 6;
+
+                    break;
+                case "Austria": zoom = 7;
+
+                    break;
+                case "Tunisia": zoom = 7;
+
+                    break;
+                case "Switzerland": zoom = 8;
+
+                    break;
+                case "United States": zoom = 4;
+
+                    break;
+                case "Iceland": zoom = 7;
+
+                    break;
+                case "Czech Republic": zoom = 7;
+
+                    break;
+                case "Belgium": zoom = 8;
+
+                    break;
+                case "Cyprus (Anglicized)": zoom = 8;
+
+                    break;
+                case "Finland": zoom = 6;
+
+                    break;
+                case "Portugal": zoom = 7;
+
+                    break;
+                case "Netherlands": zoom = 7;
+
+                    break;
+                case "Poland": zoom = 7;
+
+                    break;
+                case "Norway": zoom = 6;
+
+                    break;
+                case "Sweden": zoom = 6;
+
+                    break;
+                case "Greenland": zoom = 4;
+
+                    break;
+                case "Germany": zoom = 6;
+
+                    break;
+                case "France": zoom = 6;
+
+                    break;
+                default: zoom = 6;
+            }
+
             query += "client.countryfull = '" + country + "' AND ";
-        };
+        }
 
         if(zodiac !== null) {
 
             query += "client.tropicalzodiac = '" + zodiac + "' AND ";
-        };
+        }
 
         if(blood !== null) {
 
             query += "client.bloodtype = '" + blood + "' AND ";
-        };
+        }
 
         if(startDate !== "") {
 
             query += "`order`.`date` >= '" + startDate + "' AND ";
-        };
+        }
 
         if(endDate !== "") {
 
             query += "`order`.`date` <= '" + endDate + "' AND ";
-        };
+        }
 
         if(startAge !== "") {
 
             query += "client.age >= " + startAge + " AND ";
-        };
+        }
 
         if(endAge !== "") {
 
             query += "client.age <= " + endAge + " ";
-        };
+        }
         
         /** Checking if query ends with "AND" or "WHERE" */
         let length = query.length - 4;
@@ -295,7 +419,7 @@ $(document).ready(function () {
         if(checkString == "AND ") {
                                     
             query = query.substr(0, length);
-        };
+        }
 
         length = query.length - 6;
         checkString = query.substr(length);
@@ -303,7 +427,7 @@ $(document).ready(function () {
         if (checkString == "WHERE ") {
 
             query = query.substr(0, length);
-        };
+        }
 
         /** Finalizing query */
         query += "GROUP BY client.clientID";
@@ -311,22 +435,52 @@ $(document).ready(function () {
         /** Executing query with express */
         fetch('http://localhost:3000/query-clientMap-filter/' + query) /** Fetching filtered map query results from express */
         .then(response => response.json())
-        .then(result => {
+        .then(result => {            
 
             heatData = []; /** Resetting heatmap array */
+            coords = []; /** Resetting coords array */
+            let obj;
+            let coord;
 
             $.each(result, function () {
 
-                let obj = { /** Creating an obj for each row */
+                obj = { /** Creating an obj for each row */
 
                     location: new google.maps.LatLng(this.latitude, this.longitude),
                     weight: this.orders
                 };
 
+                for (let i = 0; i < this.orders; i++) { /** Creating as many coord objects as the weight of each point */
+
+                    coord = {
+
+                        latitude: this.latitude,
+                        longitude: this.longitude
+                    };
+
+                    coords.push(coord);
+                }
+
                 heatData.push(obj); /** Adding the objects to the array */
             });
 
-            initMap();
+            if(result.length == 0){
+
+                let center = { lat: 45.541553, lng: 10.211802};
+
+                initMap(center, defaultZoom);
+
+                $("#noData").show();
+            }else {
+
+                let avgLocation = averageGeolocation(coords); /** Caulculating the average location of coords array */
+    
+                let center = { lat: avgLocation.latitude, lng: avgLocation.longitude }; /** Setting heatmap center */
+    
+                initMap(center, zoom);
+            }
+
+            $(document).scrollTop($(document).height()); /** Scrolling to the bottom of the page */
         });
     });
 });
@@ -335,9 +489,11 @@ $(document).ready(function () {
 $(document).ready(function () {
 
     $("#resetMap").click(function () {
+        
+        $("#noData").hide();
 
-        $(document).scrollTop($(document).height()); /** Scrolling to the bottom of the page */
         loadMap();
+        $(document).scrollTop($(document).height()); /** Scrolling to the bottom of the page */
     });
 });
 
@@ -361,26 +517,72 @@ $(document).ready(function () {
 
 /** Age filter function */
 (function ($) {
+
     $.fn.inputFilter = function (inputFilter) {
+
         return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
             if (inputFilter(this.value)) {
+
                 this.oldValue = this.value;
                 this.oldSelectionStart = this.selectionStart;
                 this.oldSelectionEnd = this.selectionEnd;
             } else if (this.hasOwnProperty("oldValue")) {
+
                 this.value = this.oldValue;
                 this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
             } else {
+
                 this.value = "";
-            }
+            };
         });
     };
 }(jQuery));
 
 $("#startAge").inputFilter(function (value) {
+
     return /^\d*$/.test(value) && (value === "" || parseInt(value) >= 0);
 });
 
 $("#endAge").inputFilter(function (value) {
+
     return /^\d*$/.test(value) && (value === "" || parseInt(value) >= 0);
 });
+
+/** SLERP on Wikipedia */
+function averageGeolocation(coords) {
+
+    if (coords.length === 1) {
+
+        return coords[0];
+    };
+
+    let x = 0.0;
+    let y = 0.0;
+    let z = 0.0;
+
+    for (let coord of coords) {
+
+        let latitude = coord.latitude * Math.PI / 180;
+        let longitude = coord.longitude * Math.PI / 180;
+
+        x += Math.cos(latitude) * Math.cos(longitude);
+        y += Math.cos(latitude) * Math.sin(longitude);
+        z += Math.sin(latitude);
+    };
+
+    let total = coords.length;
+
+    x = x / total;
+    y = y / total;
+    z = z / total;
+    
+    let centralLongitude = Math.atan2(y, x);
+    let centralSquareRoot = Math.sqrt(x * x + y * y);
+    let centralLatitude = Math.atan2(z, centralSquareRoot);
+
+    return {
+
+        latitude: centralLatitude * 180 / Math.PI,
+        longitude: centralLongitude * 180 / Math.PI
+    };
+};

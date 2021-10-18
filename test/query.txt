@@ -33,3 +33,8 @@ client.bloodtype = "AB+" AND
 client.age >= 1 AND 
 client.age <= 90 
 GROUP BY client.clientID
+
+SELECT client.countryfull, COUNT(order.orderID) AS orders
+FROM client
+JOIN `order` ON client.clientID = `order`.clientID
+GROUP BY client.countryfull
