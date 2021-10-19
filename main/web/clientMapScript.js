@@ -552,6 +552,13 @@ $("#endAge").inputFilter(function (value) {
     return /^\d*$/.test(value) && (value === "" || parseInt(value) >= 0);
 });
 
+$(document).keypress(function (e) {
+    
+    if (e.which == 13) {
+        $("#filterSubmit").click();
+    }
+});
+
 /** SLERP on Wikipedia */
 
 /**
