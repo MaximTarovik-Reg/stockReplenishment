@@ -92,4 +92,4 @@ By running "createOrder.html" you can add randomly generated orders to the datab
 
 ## :detective: Clients' orders Heat Map
 
-By running "clientMap.hmtml" you get access to the clients' orders heatMap, here you can filter the results by certain parameters and watch the displayed data.
+By running "clientMap.html" you get access to the clients' orders heatMap, here you can filter the results by certain parameters and watch the displayed data.
